@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+    
+</head>
+<body>
+    <div class="background""></div>
+    <form autocomplete="off">
+        <h1>Sign Up</h1>
+        <p class="caption">Explore more in this vast new world</p>
+        <div class="nama kotak">
+            <label for="nama">Name</label> <br>
+            <input type="text"id="nama">
+        </div>
+        <div class="email kotak">
+            <label for="email">Email</label> <br>
+            <input type="email"id="email" >
+        </div>
+        <div class="password kotak">
+            <label for="pass">Password</label> <br>
+            <p id="errPass"></p>
+            <input type="password" placeholder=" " id="pass" minlength="8">
+            
+        </div>
+        <input type="button" value="Register" onclick="klik()">
+        <div id="err">
+            <p id="error"></p>
+        </div>
+    </form>
+    <script>
+        function cek_nama(name){
+            if (!name){
+                return false
+            }
+            else if (name.length <3){
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+        function cek_email(email){
+            let cek=email.match("@gmail.com");
+            
+            if (email[0]=="@"){
+                return false;
+            }
+            else{
+                return Boolean(cek);
+            }
+        }
+        function cek_pass(pass){
+            let hasil1 = /[a-z]/.test(pass);
+            let hasil2 = /[A-Z]/.test(pass);
+            let hasil3 = /[0-9]/.test(pass);
+            if (hasil1 && hasil2 && hasil3 ){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        function hasil(name,pass,email){
+            let hasil_name=cek_nama(name);
+            let hasil_pass=cek_pass(pass);
+            let hasil_email=cek_email(email);
+            if (hasil_name && hasil_pass && hasil_email){
+                console.log(name);
+                
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        function klik(){
+            let name= document.getElementById("nama").value;
+            let pass= document.getElementById("pass").value;
+            let email= document.getElementById("email").value;
+            let element= document.getElementById("error")
+            if (hasil(name,pass,email)){
+                window.location.href= "calculator.html"
+            }
+            else{
+                if (!pass){
+                    document.getElementById("errPass").innerHTML="Password harus mengandung angka, huruf besar dan minimal 8 karakter";
+                    element.style.color="black";
+                }
+                document.getElementById("error").innerHTML="Data yang diisi tidak sesuai.";
+                element.style.color="black";
+            }
+        }
+    </script>
+</body>
+</html>
